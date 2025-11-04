@@ -5,12 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OK Website - News</title>
     <!-- Importing Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ok-blue': '#3db0ff',
+                        'ok-orange': '#fdaf64',
+                        'ok-white': '#fefefd',
+                        'ok-gray': '#BDBABA',
+                        'ok-blue-pastel': '#73c1f6',
+                        'ok-black': '#000000',
+                        'ok-tangerine': '#ff931d',
+                    }
+                }
+            }
+        }
+    </script>
     <!-- Importing Inter font --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #fefefd; /* Use OK White as default bg */
         }
         /* Added a min-height to the grid blocks for better visual representation */
         .article-block {
@@ -19,13 +38,14 @@
         /* Ensure our main grid respects the full height */
         main {
             /* calc(100vh - height of header) */
-            min-height: calc(100vh - 4rem); 
+            /* Use height instead of min-height to fix the container size */
+            height: calc(100vh - 4rem); 
         }
     </style>
 </head>
-<body class="bg-white text-gray-900 flex flex-col min-h-screen">
+<body class="bg-ok-white text-gray-900 flex flex-col min-h-screen">
 
-    <!-- Header/Navbar --><header class="bg-white shadow-sm sticky top-0 z-50">
+    <!-- Header/Navbar --><header class="bg-ok-white shadow-sm sticky top-0 z-50">
         <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <!-- Logo --><div class="flex-shrink-0 flex items-center">
@@ -38,7 +58,7 @@
                     <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
                         Home
                     </a>
-                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-sm font-medium text-blue-600" aria-current="page">
+                    <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-ok-blue text-sm font-medium text-ok-blue" aria-current="page">
                         News
                     </a>
                     <a href="#" class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">
@@ -50,16 +70,16 @@
                 </div>
                 
                 <!-- Right Aligned Buttons --><div class="hidden sm:flex sm:items-center sm:ml-6 space-x-4">
-                    <button type="button" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-blue-600 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="button" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-ok-blue bg-ok-blue/20 hover:bg-ok-blue/30 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ok-blue">
                         Log in
                     </button>
-                    <button type="button" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <button type="button" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-ok-blue hover:bg-ok-tangerine focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ok-blue">
                         Sign up
                     </button>
                 </div>
 
                 <!-- Mobile Menu Button --><div class="-mr-2 flex items-center sm:hidden">
-                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-controls="mobile-menu" aria-expanded="false">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-ok-blue" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -72,33 +92,51 @@
 
     <!-- Main Content Area - Now relative for central pagination dots --><main class="flex-grow grid grid-cols-1 md:grid-cols-2 relative" id="main-grid">
 
-        <!-- Left Column (Featured Article) --><!-- Adjusted height, overflow, and flex properties --><div class="bg-orange-300 p-4 sm:p-8 flex flex-col justify-between relative md:col-span-2 h-full overflow-hidden" id="left-column">
+        <!-- Left Column (Featured Article) --><div class="bg-ok-orange p-4 sm:p-8 flex flex-col justify-center relative md:col-span-2 h-full overflow-hidden" id="left-column">
             <!-- Expand/Collapse for Left Column --><div class="absolute top-4 right-4 z-10">
-                <!-- Expand Right Column Icon (initially visible) --><svg id="expand-right-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg id="expand-right-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 12h14" />
                 </svg>
-                <!-- Collapse Left Column Icon (initially hidden) --><svg id="collapse-left-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg id="collapse-left-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
                 </svg>
             </div>
 
-            <!-- Article Content (Title, Image, Description) --><!-- Removed items-center, added px-4 and pb-16 --><div class="flex flex-col justify-center h-full px-4 pb-16">
-                <h2 id="article-title" class="text-3xl font-bold text-gray-800 w-full text-left mb-4 hidden"></h2>
-                <!-- Featured Image - Adjusted height and object-fit --><img class="w-full h-full max-h-[calc(100vh-18rem)] object-contain rounded-lg shadow-lg mb-4" 
-                     src="./assets/newsletter_ex_pic.png" 
-                     alt="Featured Article Image" 
-                     id="featured-image"
-                     onerror="this.src='https://placehold.co/800x600/333333/FFFFFF?text=Image+Not+Found'">
-                <p id="article-description" class="text-lg text-gray-700 w-full text-left hidden"></p>
+            <!-- Article Content (Title, Image, Description) --><div class="flex flex-col justify-center h-full px-4 pb-16 relative overflow-hidden">
+                
+                <!-- Slide 1 --><div id="article-slide-1" class="absolute inset-0 grid md:grid-cols-2 gap-8 items-center justify-items-center transition-transform duration-500 ease-out px-4">
+                    <!-- Text Column -->
+                    <div id="slide-1-text-col" class="flex flex-col justify-center">
+                        <h2 class="text-3xl font-bold text-gray-800 w-full text-left mb-4"></h2>
+                        <p class="text-lg text-gray-700 w-full text-left mt-4"></p>
+                    </div>
+                    <!-- Image Column -->
+                    <div id="slide-1-img-col" class="flex justify-center items-center">
+                        <img class="w-full h-full max-h-[calc(100vh-22rem)] object-contain rounded-lg" src="" alt="Featured Article Image" onerror="this.src='https://placehold.co/800x600/333333/FFFFFF?text=Image+Not+Found'">
+                    </div>
+                </div>
+                
+                <!-- Slide 2 --><div id="article-slide-2" class="absolute inset-0 grid md:grid-cols-2 gap-8 items-center justify-items-center transition-transform duration-500 ease-out translate-x-full px-4">
+                    <!-- Text Column -->
+                    <div id="slide-2-text-col" class="flex flex-col justify-center">
+                        <h2 class="text-3xl font-bold text-gray-800 w-full text-left mb-4"></h2>
+                        <p class="text-lg text-gray-700 w-full text-left mt-4"></p>
+                    </div>
+                    <!-- Image Column -->
+                    <div id="slide-2-img-col" class="flex justify-center items-center">
+                        <img class="w-full h-full max-h-[calc(100vh-22rem)] object-contain rounded-lg" src="" alt="Featured Article Image" onerror="this.src='https://placehold.co/800x600/333333/FFFFFF?text=Image+Not+Found'">
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <!-- Right Column (Article Grid) --><!-- Initially hidden, then appears in split-screen or full-screen --><div class="bg-blue-300 p-4 sm:p-8 hidden relative h-full overflow-y-auto" id="right-column">
+        <!-- Right Column (Article Grid) --><div class="bg-ok-blue p-4 sm:p-8 hidden relative h-full overflow-y-auto" id="right-column">
             <!-- Expand/Collapse Icons for Right Column --><div class="flex justify-end mb-2 absolute top-4 right-4 z-10">
-                <!-- Expand Right Column to Fullscreen (initially hidden) --><svg id="expand-fullscreen-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg id="expand-fullscreen-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1v4m0 0h-4m4-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v-4m0 0h-4m4 4l-5-5" />
                 </svg>
-                <!-- Collapse Right Column (initially hidden) --><svg id="collapse-fullscreen-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg id="collapse-fullscreen-button" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700 cursor-pointer hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </div>
@@ -111,7 +149,7 @@
                 <!-- Grid items will be generated by JavaScript --></div>
         </div>
 
-        <!-- Pagination Dots - Now centrally located outside columns --><div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex justify-center items-center space-x-2 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 z-20" id="pagination-dots">
+        <!-- Pagination Dots --><div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex justify-center items-center space-x-2 bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 z-20" id="pagination-dots">
             <!-- Dots will be generated by JavaScript --></div>
 
     </main>
@@ -130,33 +168,51 @@
 
             // --- STATE ---
             let currentArticleIndex = 0;
-            // 0: Full Image (Left Column spans 2)
-            // 1: Split Screen (Both columns visible, md:grid-cols-2)
-            // 2: Full Article (Right Column spans 2)
-            let layoutState = 0; 
+            let layoutState = 0; // 0: Full Image, 1: Split, 2: Full Article
+            let slide1 = null;
+            let slide2 = null;
+            let currentSlideElement = null; // Tracks which slide is currently active
+            let isAnimating = false; // Prevents multiple animations at once
+            let carouselInterval = null; // Holds the timer for auto-play
 
             // --- ELEMENT REFERENCES ---
             const mainGrid = document.getElementById('main-grid');
             const leftColumn = document.getElementById('left-column');
             const rightColumn = document.getElementById('right-column');
-            const featuredImage = document.getElementById('featured-image');
-            const articleTitle = document.getElementById('article-title'); // New
-            const articleDescription = document.getElementById('article-description'); // New
             const paginationDots = document.getElementById('pagination-dots');
             const articleGrid = document.getElementById('article-grid');
             const gridHeader = document.getElementById('grid-header-text');
 
-            const expandRightButton = document.getElementById('expand-right-button'); // In left column
-            const collapseLeftButton = document.getElementById('collapse-left-button'); // In left column
-            const expandFullscreenButton = document.getElementById('expand-fullscreen-button'); // In right column
-            const collapseFullscreenButton = document.getElementById('collapse-fullscreen-button'); // In right column
+            const expandRightButton = document.getElementById('expand-right-button');
+            const collapseLeftButton = document.getElementById('collapse-left-button');
+            const expandFullscreenButton = document.getElementById('expand-fullscreen-button');
+            const collapseFullscreenButton = document.getElementById('collapse-fullscreen-button');
+
+            slide1 = document.getElementById('article-slide-1');
+            slide2 = document.getElementById('article-slide-2');
 
             // --- FUNCTIONS ---
+
+            // NEW FUNCTION: Start Carousel
+            function startCarousel() {
+                stopCarousel(); // Clear any existing interval first
+                carouselInterval = setInterval(() => {
+                    const nextIndex = (currentArticleIndex + 1) % articles.length;
+                    updateFeaturedArticle(nextIndex, 'auto');
+                }, 5000); // 5 seconds
+            }
+
+            // NEW FUNCTION: Stop Carousel
+            function stopCarousel() {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+            }
 
             // 1. Initialize Page
             function initialize() {
                 paginationDots.innerHTML = ''; 
                 articleGrid.innerHTML = ''; 
+                currentSlideElement = slide1; // Start with slide 1 as active
 
                 articles.forEach((article, index) => {
                     // Create pagination dot
@@ -165,20 +221,18 @@
                     dot.classList.add(index === 0 ? 'bg-gray-100' : 'bg-gray-500');
                     dot.dataset.index = index;
                     dot.addEventListener('click', () => {
-                        updateFeaturedArticle(index);
-                        if (layoutState !== 0) setLayoutState(1); // Go to split view if not already there
+                        updateFeaturedArticle(index, 'manual'); // Pass 'manual' flag
+                        if (layoutState !== 0) setLayoutState(1);
                     });
                     paginationDots.appendChild(dot);
 
                     // Create grid item
                     const gridItem = document.createElement('div');
                     gridItem.classList.add('article-block', 'bg-gray-100', 'rounded-lg', 'p-4', 'shadow', 'cursor-pointer', 'hover:bg-gray-200', 'transition-all');
-                    // Changed to "Text Placeholder" as requested
                     gridItem.innerHTML = `<p class="text-sm text-gray-600">Text Placeholder</p>`;
                     gridItem.dataset.index = index;
 
-                    // Apply grid spans from original layout
-                    // Note: If you add more than 6 articles, you'll need more complex grid-span logic here.
+                    // Apply grid spans
                     if (index === 0) gridItem.classList.add('col-span-1', 'row-span-2');
                     else if (index === 1) gridItem.classList.add('col-span-1', 'row-span-1');
                     else if (index === 2) gridItem.classList.add('col-span-1', 'row-span-3'); // Tall right
@@ -187,24 +241,93 @@
                     else if (index === 5) gridItem.classList.add('col-span-1', 'row-span-1');
                     
                     gridItem.addEventListener('click', () => {
-                        updateFeaturedArticle(index);
-                        setLayoutState(1); // Always go to split view when clicking grid item
+                        updateFeaturedArticle(index, 'manual'); // Pass 'manual' flag
+                        setLayoutState(1);
                     });
                     articleGrid.appendChild(gridItem);
                 });
 
-                updateFeaturedArticle(0); // Load the first article initially
-                setLayoutState(0); // Set initial layout to full image
+                updateFeaturedArticle(0, 'init'); // Load first article without animation
+                setLayoutState(0); // Set initial layout
+                startCarousel(); // Start the carousel on load
             }
 
             // 2. Update Featured Article (Left Column)
-            function updateFeaturedArticle(index) {
-                currentArticleIndex = index;
-                const article = articles[index];
+            function updateFeaturedArticle(index, direction = 'auto') {
                 
-                featuredImage.src = article.imageUrl;
-                articleTitle.textContent = article.title; // Update title
-                articleDescription.textContent = article.description; // Update description
+                if ((index === currentArticleIndex || isAnimating) && direction !== 'init') return;
+                
+                if (direction !== 'init') isAnimating = true; 
+
+                if (direction === 'manual' && layoutState === 0) {
+                    startCarousel(); 
+                }
+
+                const article = articles[index];
+                const nextSlideElement = (currentSlideElement === slide1) ? slide2 : slide1;
+                const oldSlideElement = currentSlideElement;
+
+                // 1. Populate the next slide (which is off-screen)
+                const nextTitle = nextSlideElement.querySelector('h2');
+                const nextImg = nextSlideElement.querySelector('img');
+                const nextDesc = nextSlideElement.querySelector('p');
+                
+                nextTitle.textContent = article.title;
+                nextImg.src = article.imageUrl;
+                nextDesc.textContent = article.description;
+                
+                // ALSO apply current layout state to the new slide BEFORE it animates in
+                const showText = (layoutState === 0);
+                const nextTextCol = nextSlideElement.querySelector('#' + nextSlideElement.id + '-text-col');
+                if (nextTextCol) nextTextCol.classList.toggle('hidden', !showText);
+                nextSlideElement.classList.toggle('md:grid-cols-2', showText);
+                nextSlideElement.classList.toggle('md:grid-cols-1', !showText);
+
+
+                // 2. Animate slides (or init)
+                if (direction === 'init') {
+                    // On init, just set content for the first slide, no animation
+                    const currentTitle = oldSlideElement.querySelector('h2');
+                    const currentImg = oldSlideElement.querySelector('img');
+                    const currentDesc = oldSlideElement.querySelector('p');
+                    
+                    currentTitle.textContent = article.title;
+                    currentImg.src = article.imageUrl;
+                    currentDesc.textContent = article.description;
+
+                    // ALSO apply layout state to the init slide
+                    const currentTextCol = oldSlideElement.querySelector('#' + oldSlideElement.id + '-text-col');
+                    if (currentTextCol) currentTextCol.classList.toggle('hidden', !showText);
+                    oldSlideElement.classList.toggle('md:grid-cols-2', showText);
+                    oldSlideElement.classList.toggle('md:grid-cols-1', !showText);
+                    
+                    isAnimating = false; // Not animating
+                } else {
+                    // Slide animation
+                    oldSlideElement.classList.add('-translate-x-full'); // Slide out left
+                    nextSlideElement.classList.remove('translate-x-full'); // Slide in from right
+
+                    setTimeout(() => {
+                        // FIX: Reset the slide that just moved off-screen without animation
+                        oldSlideElement.classList.add('transition-none'); // 1. Disable transition
+                        oldSlideElement.classList.remove('-translate-x-full'); // 2. Remove old position
+                        oldSlideElement.classList.add('translate-x-full'); // 3. Add new position (off-screen right)
+                        
+                        // Force a reflow to apply the change instantly
+                        oldSlideElement.offsetHeight; 
+                        
+                        // Re-enable transitions AFTER a tiny delay
+                        setTimeout(() => {
+                            oldSlideElement.classList.remove('transition-none'); // 4. Re-enable transition
+                        }, 20); // Small delay to ensure snap happens first
+                        
+                        currentSlideElement = nextSlideElement;
+                        isAnimating = false;
+                    }, 500); // Must match transition duration (duration-500)
+                }
+
+                // 3. Update state (common for all)
+                currentArticleIndex = index;
                 gridHeader.textContent = article.title; // Update header text in right column
 
                 // Update dots
@@ -216,6 +339,13 @@
 
             // 3. Manage Layout States
             function setLayoutState(newState) {
+                // Stop/Start carousel based on state change
+                if (newState === 0) {
+                    startCarousel();
+                } else {
+                    stopCarousel();
+                }
+                
                 layoutState = newState;
 
                 // Reset all column classes and hidden states
@@ -229,9 +359,31 @@
                 expandFullscreenButton.classList.add('hidden');
                 collapseFullscreenButton.classList.add('hidden');
 
-                // Hide title and description by default
-                articleTitle.classList.add('hidden');
-                articleDescription.classList.add('hidden');
+                // NEW LOGIC FOR CENTERING
+                const showText = (newState === 0);
+
+                // Find all text columns
+                const textCols = [
+                    document.getElementById('slide-1-text-col'), 
+                    document.getElementById('slide-2-text-col')
+                ];
+                
+                // Find all slide grids
+                const slideGrids = [slide1, slide2];
+
+                // Toggle visibility of all text columns
+                textCols.forEach(col => {
+                    if (col) col.classList.toggle('hidden', !showText);
+                });
+
+                // Toggle grid layout on slides for centering image
+                slideGrids.forEach(grid => {
+                    if (grid) {
+                        grid.classList.toggle('md:grid-cols-2', showText); // 2 cols if text is shown
+                        grid.classList.toggle('md:grid-cols-1', !showText); // 1 col if text is hidden
+                    }
+                });
+
 
                 if (layoutState === 0) { // Full Image View
                     leftColumn.classList.add('md:col-span-2');
@@ -239,9 +391,6 @@
                     mainGrid.classList.add('md:grid-cols-1'); // Effectively one column for md screens and up
                     expandRightButton.classList.remove('hidden'); // Show expand icon on left
                     
-                    // Show title and description
-                    articleTitle.classList.remove('hidden');
-                    articleDescription.classList.remove('hidden');
                 } else if (layoutState === 1) { // Split Screen View
                     leftColumn.classList.remove('hidden'); // Ensure visible
                     rightColumn.classList.remove('hidden'); // Ensure visible
